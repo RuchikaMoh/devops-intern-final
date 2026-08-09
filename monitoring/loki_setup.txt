@@ -1,0 +1,71 @@
+Grafana Loki Monitoring Setup
+=============================
+
+Name: Ruchika Mohurle
+Date: 09-Aug-2026
+
+1. Loki Setup
+-------------
+
+Loki was started locally using Docker.
+
+Command:
+
+MSYS_NO_PATHCONV=1 docker run -d \
+  --name loki \
+  -p 3100:3100 \
+  -v "$(pwd)/monitoring/loki-config.yaml:/etc/loki/local-config.yaml" \
+  grafana/loki:latest \
+  -config.file=/etc/loki/local-config.yaml
+
+2. Loki Health Check
+--------------------
+
+Command:
+
+curl http://localhost:3100/ready
+
+Result:
+
+ready
+
+3. Log Ingestion Test
+---------------------
+
+A test log was pushed to Loki using the Loki HTTP API.
+
+Test message:
+
+Hello, DevOps! Loki test log
+
+4. Log Query
+------------
+
+Logs were retrieved using the Loki range query API.
+
+Command:
+
+curl -G "http://localhost:3100/loki/api/v1/query_range" \
+  --data-urlencode 'query={job="devops-assessment"}' \
+  --data-urlencode 'limit=10'
+
+The query successfully returned one log line.
+
+5. Verification
+---------------
+
+Loki was verified to be running successfully and able to
+receive, store, and query log data.
+
+Architecture:
+
+Application / Container
+        |
+        v
+      Logs
+        |
+        v
+      Loki
+        |
+        v
+   Query API :3100
