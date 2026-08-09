@@ -1,3 +1,5 @@
+[![DevOps CI](https://github.com/RuchikaMoh/devops-intern-final/actions/workflows/ci.yml/badge.svg)](https://github.com/RuchikaMoh/devops-intern-final/actions/workflows/ci.yml)
+
 # DevOps Intern Final Assessment
 
 **Name:** Ruchika Mohurle  
